@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CIO Buddy Limited</title>
 
-  <!-- Fonts -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
@@ -13,6 +13,7 @@
 </head>
 <body>
 
+<!-- NAV -->
 <header class="nav">
   <div class="nav-inner">
     <div class="logo">CIO Buddy</div>
@@ -27,10 +28,10 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg parallax-bg"></div>
 
   <h1 class="split-lines parallax-mid">
-    Your Personal CIO.<br>For Life.
+    Your Personal CIO.<br>For Life.<br>
   </h1>
 
   <p class="split-lines subtle parallax-mid">
@@ -45,51 +46,175 @@
   </div>
 </section>
 
+<!-- PROBLEM -->
+<section class="section dark parallax-section">
+  <h2 class="split-lines">The world is in chaos.</h2>
+  <p class="center split-lines subtle">
+    Information overload. Market noise.<br>
+    Investors react with fear instead of clarity.
+  </p>
+</section>
+
+<!-- CONSEQUENCE -->
+<section class="section parallax-section">
+  <h2 class="split-lines">Bad advice becomes permanent damage.</h2>
+  <div class="grid">
+    <div class="card parallax-card">Hidden portfolio risk</div>
+    <div class="card parallax-card">False diversification</div>
+    <div class="card parallax-card">Retirement stress</div>
+  </div>
+</section>
+
 <!-- PRODUCT -->
 <section id="product" class="section dark parallax-section">
   <h2 class="split-lines">Meet CIO Buddy</h2>
+  <p class="center split-lines subtle">
+    An AI‑powered Chief Investment Officer<br>
+    monitoring your portfolio 24/7.
+  </p>
 
   <div class="grid">
     <div class="feature parallax-card">
-      <img src="images/risk.svg" class="card-icon" alt="Risk Watchtower">
       <h3>24/7 Risk Watchtower</h3>
       <p>Continuous monitoring, factor analytics, instant alerts.</p>
     </div>
-
     <div class="feature parallax-card">
-      <img src="images/transparency.svg" class="card-icon" alt="Transparency">
       <h3>Total Transparency</h3>
       <p>Every exposure, risk and strategy fully decomposed.</p>
     </div>
-
     <div class="feature parallax-card">
-      <img src="images/research.svg" class="card-icon" alt="Research">
       <h3>Research Pedigree</h3>
       <p>Built by hedge fund managers and wealth professionals.</p>
     </div>
   </div>
 </section>
 
-<!-- IMAGE STORY -->
-<section class="image-section parallax-section">
-  <div class="image-wrap">
-    <img src="images/dashboard-preview.png" alt="CIO Buddy Dashboard Preview">
+<!-- VISION -->
+<section id="vision" class="section parallax-section">
+  <h2 class="split-lines">
+    Not just fintech.<br>
+    Not just wealth management.
+  </h2>
+  <p class="center split-lines subtle">
+    Gamma (Risk Management) + Beta (Market Exposure) + Alpha (Excess Return)
+  </p>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="section dark parallax-section">
+  <h2 class="split-lines">Built by people you trust with capital.</h2>
+  <div class="grid">
+    <div class="card parallax-card">Michael Yong‑Haron, CFA<br><small>Chairman & CEO</small></div>
+    <div class="card parallax-card">Clarence Yeung<br><small>Executive Director</small></div>
+    <div class="card parallax-card">Saniza Othman<br><small>Director</small></div>
+    <div class="card parallax-card">Alan Ho<br><small>Chief Technology Officer</small></div>
   </div>
 </section>
 
 <!-- CTA -->
 <section id="contact" class="cta-section parallax-section">
   <h2 class="split-lines">The future of investing has a CIO.</h2>
-
-  <a href="mailto:info@ciobuddy.com?subject=Inquiry%20from%20CIO%20Buddy%20Website"
-     class="primary">
-    Contact CIO Buddy
-  </a>
+  <button class="primary">Contact CIO Buddy</button>
 </section>
+
+<!-- 
+<section id="contact" class="cta-section parallax-section">
+  <h2 class="split-lines">The future of investing has a CIO.</h2>
+
+  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="contact" />
+
+    <!-- Honeypot (spam protection) 
+    <p style="display:none">
+      <label>Don’t fill this out: <input name="bot-field" /></label>
+    </p>
+
+    <input type="text" name="name" placeholder="Your name" required />
+    <input type="email" name="email" placeholder="Your email" required />
+    <textarea name="message" placeholder="Your message" rows="4" required></textarea>
+
+    <button type="submit" class="primary">Contact CIO Buddy</button>
+  </form>
+</section>
+-->
 
 <footer>
   <p>© 2026 CIO Buddy Limited. All rights reserved.</p>
 </footer>
+
+<!-- GSAP -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+<!-- GSAP ANIMATIONS -->
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* LINE-BASED TEXT ANIMATION (NO WORD JUMPING) */
+document.querySelectorAll('.split-lines').forEach(el => {
+  const lines = el.innerHTML.split('<br>');
+  el.innerHTML = lines.map(l => `<span class="line">${l}</span>`).join('<br>');
+
+  gsap.fromTo(el.querySelectorAll('.line'),
+    { y: 24, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.9,
+      ease: "power3.out",
+      stagger: 0.12,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%"
+      }
+    }
+  );
+});
+
+/* PARALLAX DEPTH LAYERS */
+gsap.to(".parallax-bg", {
+  y: 80,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    scrub: true
+  }
+});
+
+gsap.to(".parallax-mid", {
+  y: 40,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    scrub: true
+  }
+});
+
+gsap.to(".parallax-front", {
+  y: 20,
+  ease: "none",
+  scrollTrigger: {
+    trigger: ".hero",
+    scrub: true
+  }
+});
+
+gsap.utils.toArray(".parallax-card").forEach(card => {
+  gsap.fromTo(card,
+    { y: 30, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.9,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: card,
+        start: "top 90%"
+      }
+    }
+  );
+});
+</script>
 
 </body>
 </html>
